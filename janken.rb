@@ -15,11 +15,6 @@ class Player
       puts "0~2の数字を入力してください。"
       puts "0:グー, 1:チョキ, 2:パー"
       input_hand = gets.chomp
-        # プレイヤーに「0〜2」を入力させる文章を表示させる。
-        # puts "0〜2の数字を入力してください。"
-        # puts "0:グー, 1:チョキ, 2:パー"
-        # 変数「input_hand」にプレイヤーの入力値を代入します。
-      # end if文のend
       end
     end
   end
@@ -38,7 +33,6 @@ class Janken
     # 変数「janken」に["グー", "チョキ", "パー"]を代入します。
     janken = ["グー", "チョキ", "パー"]
     puts "相手の手は#{janken[enemy_hand]}です。"
-    # Playerクラスの戻り値とEnemyクラスの戻り値からじゃんけんするロジックを作成します。
     player_hand = player_hand.to_i
     #文字列をここで整数に変換
     if player_hand == enemy_hand
@@ -48,7 +42,7 @@ class Janken
       true
       #「true」を返してじゃんけんを繰り返し実行させます。
       # ヒント：「return」を使って戻り値を返すことができます。しかし、Rubyでは戻り値を返す場合、「return」を省略するのが一般的です。
-    elsif (player_hand == 0 && enemy_hand == 1) || (player_hand == 1 && enemy_hand == 2) || (player_hand == 2 && enemy_hand == 0)
+    elsif (player_hand - enemy_hand + 3 ) % 3 == 2
       puts "あなたの勝ちです。"
       false
       # もしも下記の組み合わせだった場合
@@ -61,6 +55,7 @@ class Janken
       #「あなたの負けです」を出力します。
       #「false」を返してじゃんけんを終了させます。
     end
+
   end
 end
 
@@ -77,13 +72,13 @@ class GameStart
     janken = Janken.new
     # 変数「next_game」に「true」を代入しましょう。
     # 「next_game」が「false」だと繰り返し処理を終了し、「true」だと繰り返し処理を継続します。
-    while true
-      next_game = janken
+    next_game = true
+    while next_game
       # 変数「next_game」にじゃんけんを実行して返ってきた値(戻り値)を代入します。
       next_game = janken.pon(player.hand, enemy.hand)
       #playerクラスのhandメソッドを引数に入れる
+      end
     end
   end
-end
 # クラス名を使ってjankenponメソッドを呼び出します。
 GameStart.jankenpon
