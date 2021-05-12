@@ -3,18 +3,14 @@ class Player
   def hand
     puts "数字を入力してください。"
     puts "0:グー, 1:チョキ, 2:パー"
-    # 変数「input_hand」にプレイヤーの入力値を代入します。
     input_hand = gets.chomp
-    # 「input_hand」が「0, 1, 2」のいずれかだと繰り返し処理を終了し、
-    #それ以外（アルファベットも含む）だと繰り返し処理を継続します。
+    #.chompを使うと"1\n"にならず綺麗な"1"になる
     while true
       # if 「input_hand」が「0, 1, 2」のいずれかの場合だった場合
       if input_hand == "0" || input_hand == "1" || input_hand == "2"
-        # 「input_hand」をそのまま返す。
-        # ヒント：戻り値を返して繰り返し処理を終了させたい場合、「return」を使用します。
         return input_hand
         break
-      # else それ以外の場合
+        #戻り値を返して繰り返し処理を終了
     else
       puts "0~2の数字を入力してください。"
       puts "0:グー, 1:チョキ, 2:パー"
@@ -33,15 +29,18 @@ end
 class Enemy
   def hand
     enemy_hand = rand(3)
+    #配列3つと同じで0,1,2の数字からランダム
   end
 end
-# プレイヤー(自分)が入力した「0~2」と、敵がランダムで生成した「0~2」をじゃんけんをさせて、その結果をコンソール上に出力するロジックを書きます。
 class Janken
   def pon(player_hand, enemy_hand)
+    #ここの引数は名前は実際なんでもいいので惑わされない。
     # 変数「janken」に["グー", "チョキ", "パー"]を代入します。
     janken = ["グー", "チョキ", "パー"]
     puts "相手の手は#{janken[enemy_hand]}です。"
     # Playerクラスの戻り値とEnemyクラスの戻り値からじゃんけんするロジックを作成します。
+    player_hand = player_hand.to_i
+    #文字列をここで整数に変換
     if player_hand == enemy_hand
       # Playerクラスの戻り値(player_hand)とEnemyクラスの戻り値(enemy_hand)の値が同じだった場合
       # 「あいこ」を出力します。
@@ -81,8 +80,8 @@ class GameStart
     while true
       next_game = janken
       # 変数「next_game」にじゃんけんを実行して返ってきた値(戻り値)を代入します。
-      #「janken.pon(player.hand, enemy.hand)」でじゃんけんを実行しています。
       next_game = janken.pon(player.hand, enemy.hand)
+      #playerクラスのhandメソッドを引数に入れる
     end
   end
 end
